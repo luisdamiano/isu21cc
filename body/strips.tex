@@ -24,7 +24,7 @@ that is situated west to the Basswood Trailhead.
 81\% of the surface is cropland; most of the remaining proportion is
 reconstructed prairie vegetation planted as part of the experimental
 design. For the purpose of our yield maps, these areas are treated as
-voids because no data was collected from that surface. Cropland in the
+voids because no data were collected from that surface. Cropland in the
 experiment is in a corn–soybean rotation using standard no-till soil
 and weed-management techniques. Geographic coordinates, sample time,
 moisture content, and corn (2008, 2010, 2012, 2014) and soybean (2009,
@@ -112,15 +112,14 @@ spatial location. In fact, from the figure it is not evident that
 there is 9.0\% of aerial overlap, defined as the percent excess of the
 sum of the individual rectangles area over the polygons union area.
 
-\OUTLINE{Step 1: Create polygons} We apply the XYZ algorithm. The
-shape of the site forces the operator to turn several times, including
-some sharp turns. Figure \ref{fig:basswood2012-all-steps}, displaying
-the constructed spatial polygons, makes overlapping patterns more
-evident: (i) subsequent samples overlap during turns, especially on
-the inner side; (ii) near voids, where the landscape requires more
-maneuvering; (iii) wedges formed by perpendicular passing, for example
-on the western part of the field; (iv) driving from one part to
-another; (v) between parallel passings and narrow segments.
+\OUTLINE{Step 1: Create polygons} We apply the RITAS algorithm. Figure
+\ref{fig:basswood2012-all-steps}, displaying the constructed spatial
+polygons, makes overlapping patterns more evident: (i) subsequent
+samples overlap during turns, especially on the inner side; (ii) near
+voids, where the landscape requires more maneuvering; (iii) wedges
+formed by perpendicular passing, for example on the western part of
+the field; (iv) driving from one part to another; (v) between parallel
+passings and narrow segments.
 
 \OUTLINE{Step 2: Clipping} Because overlapping produces a systematic
 overestimation of the effective area size, thus biasing down the
@@ -153,15 +152,14 @@ is difficult to identify local trends.
 
 \OUTLINE{Steps 3 \& 4: Gridding and tiling.} Smoothing is thus
 typically applied. As discussed in Section \ref{sec:algorithm},
-unequally-sized polygons are not suitable for off-the-shelf smoothing
-techniques and so we resource to tiling and aggregation. We
-superimpose a grid with 4,194 squares at a 5-meter resolution and
-apportion the harvested mass of the reshaped polygons into the
-corresponding pixels. As we retain those pixels with at least 50\% of
-their area covered by observations only, we find local zones with
-under or over coverage. Overall, the whole grid covers 2.6\% less of
-the sampled surface, a discrepancy that can be diminished by
-increasing the grid resolution.
+off-the-shelf smoothing techniques are not suitable for
+unequally-sized polygons. We superimpose a grid with 4,194 squares at
+a 5-meter resolution and apportion the harvested mass of the reshaped
+polygons into the corresponding pixels. As we retain those pixels with
+at least 50\% of their area covered by observations only, we find
+local zones with under or over coverage. Overall, the whole grid
+covers 2.6\% less of the sampled surface, a discrepancy that can be
+diminished by increasing the grid resolution.
 
 \OUTLINE{Step 5: smoothing} The results are seen in Figure
 \ref{fig:basswood2012-main-steps}. The effect of smoothing on the
@@ -185,15 +183,16 @@ color schemes based on spatial clusters.
 We have implemented our algorithm in the R programming language, using
 the R packages doParallel, foreach, gstat, rgeos, and sp
 \citep{Pebesma2004, Pebesma2005, Bivand2013, Graeler2016,
-  Microsoft2017, Corporation2018, RCT2019, Bivand2019}. Our open-source
-`yieldMaps` package contains routines for the algorithm described in
-the article, visualization routines, and the dataset employed in the
-case study. The algorithm routines were programmed as smaller, modular
-tasks so that users could easily adapt the source code to custom needs
-such as designing a different gridding and aggregation strategy, or
-employing another spatial interpolation model. Visualization routines
-include map generation as well as object movement and polygon creation
-visualizations.
+  Microsoft2017, Corporation2018, RCT2019, Bivand2019}.
+% Our open-source
+% `yieldMaps` package contains routines for the algorithm described in
+% the article, visualization routines, and the dataset employed in the
+% case study. The algorithm routines were programmed as smaller, modular
+% tasks so that users could easily adapt the source code to custom needs
+% such as designing a different gridding and aggregation strategy, or
+% employing another spatial interpolation model. Visualization routines
+% include map generation as well as object movement and polygon creation
+% visualizations.
 
 When doing exact inference for a Gaussian Process, smoothing requires
 the inversion of a square matrix with size equal to the number of
@@ -228,3 +227,8 @@ the same field but different years and crops are shown in Figure
     visualization of the spatial trends.}
   \label{fig:basswood-history}
 \end{figure}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End:

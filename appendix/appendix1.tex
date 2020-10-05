@@ -3,17 +3,34 @@
 \appendixtitle 
 \appendix
 
-
 %% Use the following two lines for single appendix
-%\unappendixtitle
-%\singleappendixtitle
+\unappendixtitle
+\singleappendixtitle
 
 \chapter{ADDITIONAL MATERIAL} 
-This is now the same as any other chapter except that
-all sectioning levels below the chapter level must begin
-with the *-form of a sectioning command.
 
-\section*{More stuff}
+\TODO{Some of these figures repeat in Figure 2. Find a better strategy for this.}
 
-Supplemental material.
+\begin{figure}
+    \centering
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.75\textwidth]{appendix/basswood_2012_res5_1_points_vehicle}
+        \includegraphics[width=0.75\textwidth]{appendix/basswood_2012_res5_1_reshaped}
+        \includegraphics[width=0.75\textwidth]{appendix/basswood_2012_res5_1_aggregated}
+    \end{minipage}\hfill
+    \begin{minipage}{0.49\textwidth}
+        \centering
+        \includegraphics[width=0.75\textwidth]{appendix/basswood_2012_res5_1_polygons_vehicle}
+        \includegraphics[width=0.75\textwidth]{appendix/basswood_2012_res5_1_chopped}
+        \includegraphics[width=0.75\textwidth]{appendix/basswood_2012_res5_1_smoothed}
+    \end{minipage}
+    \caption{Every step progression. Figures should be viewed from left to right. Brief explanation.}
+    \label{fig:basswood2012-all-steps}
+\end{figure}
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End:

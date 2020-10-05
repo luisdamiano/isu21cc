@@ -29,10 +29,10 @@ calibration in yield estimation accuracy. Although not statistical in
 nature, agronomical studies provide with insight on the physicalities
 of the system whose sampling process we aim at replicating with our
 statistical algorithm. Yield monitoring equipment, introduced in the
-early 1990s, is set of typically more than six sensors, antennas, and
-devices attached to combine harvesters that altogether calculate and
-record grain yield in real time as the machine operator harvests the
-productive field. At the end of each cycle, which lasts a
+early 1990s, is a set of typically more than six sensors, antennas,
+and devices attached to combine harvesters that altogether calculate
+and record grain yield in real time as the machine operator harvests
+the productive field. At the end of each cycle, which lasts a
 pre-specified number of seconds that can be adjusted dynamically by
 the operator, the monitor logs measurements for more than 15 variables
 related to geolocation, crop characteristics, and other machine
@@ -45,17 +45,17 @@ percentage of unreliable data and have proposed cleaning procedures
   Leroux2018, Leroux2019, Vega2019}. Mechanical measurement errors
 have been studied in great depth \citep{Arslan1999, Arslan2002,
   Grisso2002, Burks2004, Hemming2005, Fulton2009, Schuster2017}, yet
-no model-based data adjustment protocols has been developed. Instead,
+we could not find model-based data adjustment protocols. Typically,
 systematic errors are identified using either heuristics or
-statistical rules with acceptable empirical results but no underlying
-probabilistic justification. With almost unanimous preference for
-systematic error detection and removal, little consideration has been
-given to alternative strategies for error correction or integration
-such as the one proposed by \cite{Bachmaier2007, Bachmaier2010}; in
-fact, some methodologies discard as much as one third of the original
-dataset as summarized by \cite{Lyle2013}.
+statistical rules with acceptable empirical results but limited
+probabilistic motivation. With almost unanimous preference for
+systematic error detection and removal, we have found little
+development of alternative strategies for error correction or
+integration such as the one proposed by \cite{Bachmaier2007,
+  Bachmaier2010}; in fact, some methodologies discard as much as one
+third of the original dataset as summarized by \cite{Lyle2013}.
 
-In most cases, these procedures require the map user to set values for
+In many cases, these procedures require the map user to set values for
 tuning parameters such as thresholds. These constants are not learned
 from the data but set arbitrarily by the user instead, hindering
 comparisons across users, locations, and years. Moreover, manually-set
@@ -63,23 +63,22 @@ thresholds become a hurdle in the context of big data: both the amount
 and the heterogeneity of yield monitor datasets have been increasing
 as raw data become more abundant and diverse. Additionally, there is a
 general preference for working with crop yield as the main input of
-the cleaning procedures. Being a variable that consolidates data
-collected from more than one sensor, each with its own propagating
-measurement error, it has a lower signal-to-noise ratio than the mass
-random variable directly. Also, scaling mass to homogenize
-unequally-sized observational units potentiates extreme values
-resulting in a new variable with higher volatility.
+the cleaning procedures. Being a quantity fusing data collected from
+more than one sensor, each with its own propagating measurement error,
+it typically has a lower signal-to-noise ratio than the mass random
+variable. Also, scaling mass to homogenize unequally-sized
+observational units likely potentiates extreme values resulting in a
+new variable with higher volatility.
 
-Some of the processing rules, for example those based on the marginal
-distribution of yield, do not consider the spatial nature of the data
-\LD{I have some works to cite, but I don't think it's cool to single
-  out these cases.}. Those that do simply collapse all the information
-in one point on a 2-dimensional plane, thus failing to recognize that
-the recorded data are in fact associated with overlapping,
-unequally-shaped, and irregularly-sized aerial units. Each observation
-is in reality a discrete sample from a continuous spatial stochastic
-process: time order and spatial superposition are intrinsic
-characteristics of the destructive sampling scheme worth modeling.
+Some processing rules, for example those based on the marginal
+distribution of yield, do not consider the spatial nature of the
+data. Others collapse all the information in one point on a
+2-dimensional plane, thus failing to recognize that the recorded data
+are in fact associated with overlapping, unequally-shaped, and
+irregularly-sized aerial units. Each observation is in reality a
+realization from a continuous spatial stochastic process: time
+order and spatial superposition are intrinsic characteristics of the
+destructive sampling scheme worth modeling.
 
 The many variables logged by the yield monitor equipment include
 harvested mass, geocordinates, distance traveled, and swath width,
@@ -90,8 +89,8 @@ ultranosic sensor \citep{Mulla2013}. When distance is not available,
 it can be linearly estimated using speed and cycle length or
 approximated using the euclidean distance between two subsequent
 coordinates. The swath width, also known as gathering or cutting
-width, has a complex dependence with respect to time and the combine's
-path that may not be reflected in the data logged by the monitor
+width, can be time dependent and the combine's path that may not be
+correctly reflected in the data logged by the monitor
 \citep{Ross2008}. Although equipments provides the operator with tools
 to adjust the effective width dynamically, in many situations the
 operator is unable to attend to manual adjustments in real time and
@@ -105,22 +104,22 @@ theoretical and the effective harvested area. One of the reasons is
 that the recorded header width differs from the width of the header
 that is truly full of crop. While in practice it can be set equal to a
 fixed proportion of the cutter bar width, e.g. 95\%, land finishes and
-areas close to voids require special treatment as header could even be
-empty. In order to avoid any use of the recorded width, and circumvent
-the uncertainty associated with it, the authors introduced potential
-mapping. In this technique, the recorded mass of data points belonging
-to circular neighbourhoods is aggregated and assigned to a new spatial
-point whose location corresponds to the circle geocenter. The
-aggregated mass is then spatially re-normalized by the area of the
-polygons in the Voronoi diagram formed by these new points. This
-approach has two limitations. First, it transforms data into spatial
-points and thus incurs in information loss about the shape and size of
-the observational aerial units (e.g. different shapes could have the
-same centroid). Second, a gridding technique needs to be applied to
-analyze temporal trends in yield maps \citep{Blackmore2003},
-effectively displacing the yield measurements twice: all the polygon
-information is first collapsed into a single point which is displaced
-afterwards.
+areas close to voids require special treatment as the header could
+even be empty. In order to avoid any use of the recorded width, and
+circumvent the uncertainty associated with it, the authors introduced
+potential mapping. In this technique, the recorded mass of data points
+belonging to circular neighbourhoods is aggregated and assigned to a
+new spatial point whose location corresponds to the circle
+geocenter. The aggregated mass is then spatially re-normalized by the
+area of the polygons in the Voronoi diagram formed by these new
+points. This approach has two limitations. First, it transforms data
+into spatial points and thus incurs in information loss about the
+shape and size of the observational aerial units (e.g. \ different
+shapes could have the same centroid). Second, an additional gridding
+technique needs to be applied to analyze temporal trends in yield maps
+\citep{Blackmore2003}, effectively displacing the yield measurements
+twice: all the polygon information is first collapsed into a single
+point which is displaced afterwards.
 
 Previously, \cite{Han1997} introduced a bitmap approach to determine
 the actual combine cut width, compute the effective area size, and
@@ -133,10 +132,10 @@ show how this methodology performs in the presence of sharp turns,
 where overlaps tend to be larger during the pivoting motion, as these
 seem to have been removed from the analysis. It is worth noting that,
 even after processing, the intermediate spatial representations have
-some overlap and skips that the authors leave unexplained. Again, as
+some overlap and skips left unexplained by the author. Again, as
 these intermediate spatial representations are collapsed into spatial
 points, some information is lost. Furthermore, these new data points
-may not be spationally aligned if temporal analysis was pursued
+may not be spatially aligned if temporal analysis was pursued
 next. Finally, the authors warn that the bitmap initialization process
 is more complicated when there exists non-crop features such as
 rivers, canals, or roadways.
@@ -152,3 +151,8 @@ as the computational complexity of the algorithm. In the general case,
 its complexity is order $O(N^2)$, yet several strategies for specific
 cases are discussed there.
 
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "../thesis"
+%%% End:

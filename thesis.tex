@@ -7,10 +7,11 @@
 % default in this package is type 3
 
 % Standard, old-style thesis
-\usepackage{isutraditional} \chaptertitle
-
+%\usepackage{isutraditional} \chaptertitle
 % Old-style, thesis numbering down to subsubsection
-\alternate \usepackage{rotating}
+% \alternate
+
+\usepackage{rotating}
 
 % Bibliography without numbers or labels
 \usepackage{natbib}
@@ -94,6 +95,8 @@ breaklinks=true]{hyperref}
 \newcommand{\OUTLINE}[1]{\sethlcolor{SpringGreen}\hl{OUTLINE: \textit{#1}}}
 \newcommand{\TODO}[1]{\sethlcolor{Salmon}\hl{\textbf{[TODO]} #1}}
 
+\graphicspath{{figures/}}
+
 \begin{document}
 
 \DeclareGraphicsExtensions{.jpg,.pdf,.mps,.png}
@@ -140,14 +143,13 @@ breaklinks=true]{hyperref}
 \newpage
 \pagenumbering{arabic}
 
-\raggedright
 \include{body/intro}
 \include{body/ritas}
 \include{body/strips}
 \include{body/discussion}
 
 % \include{reference/biblio}
-% \include{reference/bibtex}
+\include{reference/bibtex}
 
 \include{appendix/appendix1}
 

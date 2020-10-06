@@ -1,4 +1,5 @@
 \section{RITAS algorithm}
+\label{sec:ritas}
 
 Our algorithm constructs yield maps through the following steps:
 Rectangle creation, Intersection assignment, Tesselation,
@@ -7,34 +8,34 @@ process is to mimic the real world harvesting processes. Figure
 \ref{fig:closeup} provides an illustration of these steps.
 
 \begin{figure}[h!]  \centering
-\includegraphics[width=\textwidth]{algoplots}
-    \caption{Close-up illustration of some of the pre-processing
-steps. \underline{Left}: construction of the vehicle polygons from the
-GPS location data. Black dots mark the location at the end of each
-logging cycle, green dots correspond to the vertices computed
-according to the displacement vector implied by two consecutive
-spatial points. The distance traveled could be reported by the yield
-monitor or estimated from the vector length. \underline{Center}:
-spatial polygons reveal overlap (darker areas) due to driving
-maneuvers. \underline{Right}: clipping eliminates the overlap by
-assigning intersecting areas to the first polygon in time.}
+  \includegraphics[width=\textwidth]{algoplots}
+  \caption[Close-up illustration of selected algorithm steps]{Close-up
+    illustration of selected processing steps. \underline{Left}:
+    construction of the vehicle polygons from the GPS location
+    data. Black dots mark the location at the end of each logging
+    cycle, green dots correspond to the vertices computed according to
+    the displacement vector implied by two consecutive spatial
+    points. The distance traveled could be reported by the yield
+    monitor or estimated from the vector length. \underline{Center}:
+    spatial polygons reveal overlap (darker areas) due to driving
+    maneuvers. \underline{Right}: clipping eliminates the overlap by
+    assigning intersecting areas to the first polygon in time.}
     \label{fig:closeup}
-\end{figure} \TODO{FIGURE 1: Replace with the version JN sketched,
-scanned, and emailed.}
+\end{figure}
 
 Each precision yield data set is assumed to have time-ordered rows
 containing the following information: mass harvested $m_t$,
-2-dimensional spatial coordinate $(x_t,y_t)$, and swath width $2w_t$
+2-dimensional spatial coordinate $(x_t,y_t)$, and swath width $w_t$
 (so that $w_t$ represents the half-width) for $t=0,\ldots,T$.  We
 assume any lag time has been effectively pre-processed by
 appropriately matching the mass harvested to its 2-dimensional
-location.  \JN{Add reference to techniques to do this.}
+location.
 
 \paragraph*{Step 1: Rectangle creation}
 
-Figure \ref{} illustrates the construction of a rectangular polygon
-representing the harvested area between each sequential pair of
-spatial coordinates.
+Figure \ref{fig:closeup} (left) illustrates the construction of a
+rectangular polygon representing the harvested area between each
+sequential pair of spatial coordinates.
 
 The position vector $\mathbf{s_t} = (x_{t}, y_{t})$ represents the
 location of the tracked device in a 2-dimensional plane at the time
@@ -48,23 +49,21 @@ $\mathbf{s_t} - \mathbf{s_{t-1}}$. The first two vertices are computed
 as the endpoints of a line segment perpendicular to the displacement
 vector with midpoint at $\mathbf{s_{t-1}}$ and length equal to the
 swath width. The remaining two vertices are found using the same
-procedure but pivoting on the midpoint $\mathbf{s_t}$. The rectangle
-associated with mass $m_t$ has these vertices \TODO{add four
-  coordinates like in the following expression}:
-$\{(x_{t-1} + d_t, y_{t-1} + d_ts'_t),(x_{t-1} - d_t, y_{t-1} -
-d_ts'_t), (x_{t } + d_t, y_{t } + d_ts'_t),(x_{t } + d_t, y_{t } +
-d_ts'_t)\}$ where $d_t = tan^{-1}(s'_t)$.
-
-The measurement unit of the header width, typically reported in meters
+procedure but pivoting on the midpoint $\mathbf{s_t}$. Given a pair of
+position vectors $\mathbf{s_t}, \mathbf{s_{t-1}}$, denote
+$b_t = (y_t - y_{t-1}) / (x_t - x_{t-1})$ the slope of the connecting
+line, and define $d_{x_t} = 0.5 w_t (1 + b_t^{-2})^{-\frac{1}{2}}$ and
+$dy_t = - d_{x_t} b_t^{-1}$. Then, the rectangle associated with mass
+$m_t$ has the four vertices coordinates given by
+$\{(x_{i} \pm dx_t, y_{i} \pm dy_t): i = t, t-1\}$. As the first
+spatial point has no displacement, this processing yields $T$
+rectangles with vertices collected in the set
+$\mathcal{P} = \{P_{\tau}$: $\tau \in \{2, \dots, T\}\}$. Note that
+the measurement unit of the header width, typically reported in meters
 or feet, and the coordinate reference system should be homogenized
-appropriately. As the first spatial point has no displacement, this
-processing yields $T$ rectangles with vertices collected in the set
-$\mathcal{P} = \{P_{\tau}$: $\tau \in \{2, \dots, T\}\}$.
+appropriately.
 
-\paragraph{Step 2: Intersection assignment.}  Figure \ref{} shows end
-result of this rectangle construction which produces rectangles will
-overlap, an area called the \emph{intersection}, due to adjacent
-harvester paths.
+\paragraph{Step 2: Intersection assignment}
 
 \OUTLINE{Motivate clipping} Geometries in $\mathcal{P}$ represent the
 area over which the combine harvester passed, which may differ from
@@ -109,10 +108,14 @@ a flat plane covered by tiles with no overlaps and no gaps
 discussed in \cite{Drummond1999} are relevant for implementing this
 step.
 
-This step creates $T$ polygons which partition the harvested area.
-Each polygon is associated with the same mass it had in Step 1, but
-now the area may be smaller (due to the intersection removal) and thus
-yield is more accurately captured.
+Figure \ref{fig:closeup} (middle) shows end result of this rectangle
+construction which produces rectangles will overlap, an area called
+the \emph{intersection}, due to adjacent harvester paths. Figure
+\ref{fig:closeup} (right) shows the resulting tiled plane. This step
+creates $T$ polygons which partition the harvested area. Each polygon
+is associated with the same mass it had in Step 1, but now the area
+may be smaller (due to the intersection removal) and thus yield is
+more accurately captured.
 
 \paragraph*{Step 3: Tessellation and Apportioning} \OUTLINE{Motivate
 gridding \& apportioning} The elements in $\tilde{\mathcal{P}}$ are
@@ -188,29 +191,30 @@ resolution serves only for the purpose of spatial aggregation, and
 need not be the same resolution used for the visualization that will
 be introduced in the following step.
 
-Mass is apportioned from the polygons of Step 2 to tiles in the
-grid according to their proportion of the total polygon
-area. Where tiles overlap multiple polygons, the tiles receive mass
-from each of the polygons according to the area of overlap relative to
-each polygon's area.  Thus, the mass associated with the $n$th tile is
+Mass is apportioned from the polygons of Step 2 to tiles in the grid
+according to their proportion of the total polygon area. Where tiles
+overlap multiple polygons, the tiles receive mass from each of the
+polygons according to the area of overlap relative to each polygon's
+area.  Thus, the mass associated with the $n$th tile is
 $m_n^* = \sum_{t=1}^T p_{t,n} m_t$ where $p_{t,n}$ is the proportion
 of polygon $t$'s area in the intersection of polygon $t$ and tile $n$.
 This step creates $N$ polygons, determined by the user based on
 tesselation resolution, partitioning the harvested area each with an
-associated mass of harvested crop.
+associated mass of harvested crop. Figure
+\ref{fig:basswood2012-main-steps} (bottom left) shows the regular grid
+with apportioned mass. The regular tesselation provides constant areas
+and meaningful centroids, and therefore we can use standard spatial
+smoothing techniques directly on mass, as opposed to yield.
 
-\paragraph{Step 4: Smoothing} Figure \ref{} shows the regular
-tesselation with apportioned mass.  The regular tesselation provides
-constant areas and meaningful centroids, and therefore we can use
-standard spatial smoothing techniques directly on mass, as opposed to
-yield. \cite{McCullagh2006} provided empirical evidence suggesting
-that the non-anthropogenic spatial variation in yield, defined as
-patterns that cannot be explained by topography or human intervention,
-matches the characteristics of the de Wijs process plus white
-noise. We smooth using a Gaussian Process (GP) with a Mat\'ern
-covariance on the logarithm of mass
-\citep{handcock1993bayesian,gutt2006studies}. Compared with the more
-common powered exponential covariance functions, e.g. Gaussian or
+\paragraph{Step 4: Smoothing} \cite{McCullagh2006} provided empirical
+evidence suggesting that the non-anthropogenic spatial variation in
+yield, defined as patterns that cannot be explained by topography or
+human intervention, matches the characteristics of the de Wijs process
+plus white noise. We smooth using a Gaussian Process (GP) with a
+Mat\'ern covariance on the logarithm of mass
+\citep{handcock1993bayesian,gutt2006studies}, which becomes similar to
+a Wijs process as the length scale tends to zero. Compared with the
+more common powered exponential covariance functions, e.g. Gaussian or
 exponential, the Mat\'ern adds an additional parameter that controls
 local smoothness, i.e. \ differentiability, and therefore is often
 more accurate for real world processes.
@@ -226,19 +230,7 @@ following formulas to convert back to the mean and variance of mass
 \hat{\sigma}^2_{\ell}\right)
 \left[\exp\left(\hat{\sigma}^2_{\ell}\right) - 1\right].
  \] Finally, yield is calculated by dividing the tile mass by the tile
-area.  Figure \ref{} provides smoothed version of Figure \ref{}.
-
-\subsection{Protocol assessment}
-
-One appealling aspect of our approach is that data are not eliminated
-based on arbitrary thresholds.
-
-\JN{What percentage of observations did we throw out?  Vega used R,
-can we compare to running his algorithm on our data.}
-
-\JN{Variogram}
-
-\LD{Correlation Yield, TWI for YM raw data vs aggregated vs smoothed}
+area.
 
 %%% Local Variables:
 %%% mode: latex

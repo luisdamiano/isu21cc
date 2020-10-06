@@ -1,4 +1,4 @@
-\section{STRIPS1 Yield Maps}
+\section{STRIPS yield mapping}
 
 \OUTLINE{Introduce section} In this section, we illustrate the
 functioning and the results of our methodology when applied to yield
@@ -25,9 +25,9 @@ that is situated west to the Basswood Trailhead.
 reconstructed prairie vegetation planted as part of the experimental
 design. For the purpose of our yield maps, these areas are treated as
 voids because no data were collected from that surface. Cropland in the
-experiment is in a corn–soybean rotation using standard no-till soil
+experiment is in a maize–soybean rotation using standard no-till soil
 and weed-management techniques. Geographic coordinates, sample time,
-moisture content, and corn (2008, 2010, 2012, 2014) and soybean (2009,
+moisture content, and maize (2008, 2010, 2012, 2014) and soybean (2009,
 2011, 2013, 2015) flow rate were reported by a Case IH AFS Pro-600
 combine-mounted yield monitor every 1-3 s during crop harvest,
 resulting in a fine-scale spatially referenced dataset of crop yields
@@ -53,9 +53,10 @@ equipment).
 \begin{figure}[h!]  \centering
   \includegraphics[width=\textwidth]{basswood_2012_res5_points_vehicle}
   \includegraphics[width=\textwidth]{basswood_2012_res5_1_agg_smoothed}
-  \caption{Visualization of some of the intermediate steps involved
+  \caption[Visualization of selected algorithm steps as applied to a
+  specific dataset]{Visualization of selected intermediate steps involved
     in the algorithm for the harvested grain yield of Basswood on year
-    2012 (corn). \underline{Top left}: Dot map where each observation is
+    2012 (maize). \underline{Top left}: Point map where each observation is
     marked with equally-sized points placed at the each logging
     location. Information relevant to spatial trends are hard to observe,
     such as area coverage and overlaps. \underline{Top right}: Map of the
@@ -71,14 +72,14 @@ equipment).
 \end{figure}
 
 \OUTLINE{Introduce dot maps} Figure \ref{fig:basswood2012-main-steps}
-displays the simplest form of a yield map. Data points are visualized
-as equally-sized symbols with colors indicating the yield level at
-each location. A single-hue shade of green is chosen to ease the
-interpretation with dark shades being intuitively associated with
+(top left) displays the simplest form of a yield map. Data points are
+visualized as equally-sized symbols with colors indicating the yield
+level at each location. A single-hue shade of green is chosen to ease
+the interpretation with dark shades being intuitively associated with
 relatively higher crop yield. The characteristics of the yield
 distribution vary largely across sites, crop types, and years. Since
 the main objective of yield map analysis is to identify sub-field
-areas with different performance levels, the dots are colored
+areas with different performance levels, the points are colored
 according to a measure of relative yield within the dataset as opposed
 to an absolute scale. As a general rule, we define the color gradient
 as a function of the the empirical quartiles in order to guarantee
@@ -113,13 +114,13 @@ there is 9.0\% of aerial overlap, defined as the percent excess of the
 sum of the individual rectangles area over the polygons union area.
 
 \OUTLINE{Step 1: Create polygons} We apply the RITAS algorithm. Figure
-\ref{fig:basswood2012-all-steps}, displaying the constructed spatial
-polygons, makes overlapping patterns more evident: (i) subsequent
-samples overlap during turns, especially on the inner side; (ii) near
-voids, where the landscape requires more maneuvering; (iii) wedges
-formed by perpendicular passing, for example on the western part of
-the field; (iv) driving from one part to another; (v) between parallel
-passings and narrow segments.
+\ref{fig:basswood2012-all-steps} (top right), displaying the
+constructed spatial polygons, makes overlapping patterns more evident:
+(i) subsequent samples overlap during turns, especially on the inner
+side; (ii) near voids, where the landscape requires more maneuvering;
+(iii) wedges formed by perpendicular passing, for example on the
+western part of the field; (iv) driving from one part to another; (v)
+between parallel passings and narrow segments.
 
 \OUTLINE{Step 2: Clipping} Because overlapping produces a systematic
 overestimation of the effective area size, thus biasing down the
@@ -128,16 +129,16 @@ areas. In all these cases, the coloring suggests that highly
 overlapping polygons are associated with lower yields. We note,
 however, that yield was computed using the theoretical polygon area
 which overestimates the effective harvest area. In Figure
-\ref{fig:basswood2012-all-steps}, which shows the reshaped polygons
-and the yield computed with the new effective area, we notice that
-some of the sub field areas with low-yield polygons now display a
-better performance suggesting that this visual artifact was indeed
-caused by the overlapping. As a computational note, when producing the
-reshaped polygons, 10 spatial polygons whose area had been fully
-harvested in previous time steps were dropped from the dataset causing
-an minor leakage of 0.1\% of the total harvest mass; in case of major
-situations, aggregating the mass of fully nested geometries would be
-appropriate.
+\ref{fig:basswood2012-all-steps} (middle left), which shows the
+reshaped polygons and the yield computed with the new effective area,
+we notice that some of the sub field areas with low-yield polygons now
+display a better performance suggesting that this visual artifact was
+indeed caused by the overlapping. As a computational note, when
+producing the reshaped polygons, 10 spatial polygons whose area had
+been fully harvested in previous time steps were dropped from the
+dataset causing an minor leakage of 0.1\% of the total harvest mass;
+in case of major situations, aggregating the mass of fully nested
+geometries would be appropriate.
 
 \OUTLINE{Motivate smoothing} As the ultimate goal of the visualization
 work is to support the map user's decision making process, the clipped
@@ -151,7 +152,7 @@ opposite color, and there are also zones with a combination where it
 is difficult to identify local trends.
 
 \OUTLINE{Steps 3 \& 4: Gridding and tiling.} Smoothing is thus
-typically applied. As discussed in Section \ref{sec:algorithm},
+typically applied. As discussed in the previous section,
 off-the-shelf smoothing techniques are not suitable for
 unequally-sized polygons. We superimpose a grid with 4,194 squares at
 a 5-meter resolution and apportion the harvested mass of the reshaped
@@ -162,11 +163,11 @@ covers 2.6\% less of the sampled surface, a discrepancy that can be
 diminished by increasing the grid resolution.
 
 \OUTLINE{Step 5: smoothing} The results are seen in Figure
-\ref{fig:basswood2012-main-steps}. The effect of smoothing on the
-signal to noise ratio is evident from the figure. The richness of
-smoothing is not only on the visualization, but also on the
-interpretation of the estimated parameters. We then propose that yield
-maps should not only include the spatial polygons, but also
+\ref{fig:basswood2012-main-steps} (bottom right). The effect of
+smoothing on the signal to noise ratio is evident from the figure. The
+richness of smoothing is not only on the visualization, but also on
+the interpretation of the estimated parameters. We then propose that
+yield maps should not only include the spatial polygons, but also
 statistical information useful for the map user. The range, for
 instance, is informative for map users to better understand the scale
 of the spatial effect and adjust the scale of their decisions
@@ -177,7 +178,7 @@ the main spatial trends observed so far. Clear patterns become more
 evident now; in the mixed areas, smoothing helps not only to identify
 the overall local trend but also to make internal breaks/borders more
 visible. Additional features can help with interpretation include
-contour lines, e.g. each 1 mg/ha similar to \cite{Blackmore1999}, or
+contour lines, e.g. \ each 1 mg/ha similar to \cite{Blackmore1999}, or
 color schemes based on spatial clusters.
 
 We have implemented our algorithm in the R programming language, using
@@ -205,26 +206,26 @@ direct gain in the matrix inversion time, it provides with some
 marginal improvements as out prediction space is large with more than
 90,000 pixels.
 
-Using 10 cores, the total computational time of 201 m included 168 m
-(83\%) and 17 m (8\%) spent in the smoothing and tiling steps
-respectively. This suggests that the algorithm has be run offline for
-any moderately-sized datasets, but could be improved vastly by
-simplifying the spatial interpolation model. The resulting maps for
-the same field but different years and crops are shown in Figure
-\ref{fig:basswood-history}.
+% Using 10 cores, the total computational time of 201 m included 168 m
+% (83\%) and 17 m (8\%) spent in the smoothing and tiling steps
+% respectively. This suggests that the algorithm has be run offline for
+% any moderately-sized datasets, but could be improved vastly by
+% simplifying the spatial interpolation model. The resulting maps for
+% the same field but different years and crops are shown in Figure
+% \ref{fig:basswood-history}.
 
 \begin{figure}[h!]  \centering
   \includegraphics[width=0.49\textwidth]{basswood_2010_res5_1_agg_smoothed}
   \includegraphics[width=0.49\textwidth]{basswood_2014_res5_1_agg_smoothed}
   \includegraphics[width=0.49\textwidth]{basswood_2009_res5_1_agg_smoothed}
   \includegraphics[width=0.49\textwidth]{basswood_2011_res5_1_agg_smoothed}
-  \caption{\textbf{Fix the captions after settling for a
-      layout}. Visualization of the harvested grain yield for Basswood on
-    the years 2010 (corn), 2014 (corn), 2009 (soybean), and 2011 (soybean)
-    respectively. Aggregated grid (left) and the smooth map
-    (right). Although soybean data shows larger variability, as clearly
-    displayed on the aggregated grid, the smooth map offer a clear
-    visualization of the spatial trends.}
+  \caption[Visualization of the algorithm output for one field across
+  four different years]{Visualization of the harvested grain yield for
+    Basswood in four different years. Maize in the top row, soybean in
+    the bottom row. Aggregated yield in odd columns, smoothed yield in
+    even columns. Although soybean data shows larger variability, as
+    clearly displayed on the aggregated grid, the smooth map offer a
+    clear visualization of the spatial trends. }
   \label{fig:basswood-history}
 \end{figure}
 

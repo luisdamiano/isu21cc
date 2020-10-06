@@ -92,7 +92,8 @@ breaklinks=true]{hyperref}
 \usepackage{soul}
 \newcommand{\LD}[1]{\sethlcolor{Apricot}\hl{\textbf{LD:} #1}}
 \newcommand{\JN}[1]{\sethlcolor{ProcessBlue}\hl{\textbf{JN:} #1}}
-\newcommand{\OUTLINE}[1]{\sethlcolor{SpringGreen}\hl{OUTLINE: \textit{#1}}}
+%\newcommand{\OUTLINE}[1]{\sethlcolor{SpringGreen}\hl{OUTLINE: \textit{#1}}}
+\newcommand{\OUTLINE}[1]{}
 \newcommand{\TODO}[1]{\sethlcolor{Salmon}\hl{\textbf{[TODO]} #1}}
 
 \graphicspath{{figures/}}
@@ -119,8 +120,8 @@ breaklinks=true]{hyperref}
 \addtocontents{lof}{~\hfill\textbf{Page}\par}
 %%
 \addtocontents{toc}{\def\protect\@chapapp{}} \cleardoublepage
-\phantomsection \pagebreak \addcontentsline{toc}{chapter}{LIST OF
-  TABLES} \listoftables \cleardoublepage \phantomsection
+%\phantomsection \pagebreak \addcontentsline{toc}{chapter}{LIST OF
+%  TABLES} \listoftables \cleardoublepage \phantomsection
 \addcontentsline{toc}{chapter}{LIST OF FIGURES} \listoffigures
 
 % Optional Nomenclature

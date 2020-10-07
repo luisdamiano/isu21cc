@@ -1,4 +1,4 @@
-\section{Introduction}
+\chapter{Introduction}
 
 \cite{Miller1988} were the first to employ geostatistics explicitly in
 precision agriculture, a discipline that started in 1990 when
@@ -57,18 +57,18 @@ third of the original dataset as summarized by \cite{Lyle2013}.
 
 In many cases, these procedures require the map user to set values for
 tuning parameters such as thresholds. These constants are not learned
-from the data but set arbitrarily by the user instead, hindering
-comparisons across users, locations, and years. Moreover, manually-set
-thresholds become a hurdle in the context of big data: both the amount
-and the heterogeneity of yield monitor datasets have been increasing
-as raw data become more abundant and diverse. Additionally, there is a
-general preference for working with crop yield as the main input of
-the cleaning procedures. Being a quantity fusing data collected from
-more than one sensor, each with its own propagating measurement error,
-it typically has a lower signal-to-noise ratio than the mass random
-variable. Also, scaling mass to homogenize unequally-sized
-observational units likely potentiates extreme values resulting in a
-new variable with higher volatility.
+from the data but set arbitrarily by the user instead, potentially
+hindering comparisons across users, locations, and years. Moreover,
+manually-set thresholds become a hurdle in the context of big data:
+both the amount and the heterogeneity of yield monitor datasets have
+been increasing as raw data become more abundant and
+diverse. Additionally, there is a general preference for working with
+crop yield as the main input of the cleaning procedures. Being a
+quantity fusing data collected from more than one sensor, each with
+its own propagating measurement error, it typically has a lower
+signal-to-noise ratio than the mass random variable. Also, scaling
+mass to homogenize unequally-sized observational units may potentiate
+extreme values resulting in a new variable with higher volatility.
 
 Some processing rules, for example those based on the marginal
 distribution of yield, do not consider the spatial nature of the
@@ -86,37 +86,37 @@ which can be used to create an aerial representation of the
 data. Depending on the hardware, the reported travel distance and
 speed may be measured by a speed sensor, a GPS receiver, a radar, or a
 ultranosic sensor \citep{Mulla2013}. When distance is not available,
-it can be linearly estimated using speed and cycle length or
-approximated using the euclidean distance between two subsequent
-coordinates. The swath width, also known as gathering or cutting
-width, can be time dependent and the combine's path that may not be
-correctly reflected in the data logged by the monitor
+it can be linearly estimated using speed and cycle length or less
+preferably approximated using the euclidean distance between two
+subsequent coordinates. The swath width, also known as gathering or
+cutting width, can be time dependent and the combine's path that may
+not be correctly reflected in the data logged by the monitor
 \citep{Ross2008}. Although equipments provides the operator with tools
 to adjust the effective width dynamically, in many situations the
 operator is unable to attend to manual adjustments in real time and
-thus the logged values simply represents the maximum width. We have
-found three main strategies that have been introduced so far that
-combine distance and width to reproduce an approximate spatial
-representation.
+thus the logged values simply represents the maximum or theoretical
+width. We have found three main strategies in the literature combining
+distance and width to reproduce an approximate spatial representation.
 
 \cite{Blackmore1999} observed that there is a discrepancy between the
 theoretical and the effective harvested area. One of the reasons is
 that the recorded header width differs from the width of the header
-that is truly full of crop. While in practice it can be set equal to a
-fixed proportion of the cutter bar width, e.g. 95\%, land finishes and
-areas close to voids require special treatment as the header could
-even be empty. In order to avoid any use of the recorded width, and
-circumvent the uncertainty associated with it, the authors introduced
-potential mapping. In this technique, the recorded mass of data points
-belonging to circular neighbourhoods is aggregated and assigned to a
-new spatial point whose location corresponds to the circle
-geocenter. The aggregated mass is then spatially re-normalized by the
-area of the polygons in the Voronoi diagram formed by these new
-points. This approach has two limitations. First, it transforms data
-into spatial points and thus incurs in information loss about the
-shape and size of the observational aerial units (e.g. \ different
-shapes could have the same centroid). Second, an additional gridding
-technique needs to be applied to analyze temporal trends in yield maps
+that is truly full of crop at any given time step. While in practice it
+can be set equal to a fixed proportion of the cutter bar width,
+e.g. 95\%, land finishes and areas close to voids require special
+treatment as the header could even be empty. In order to avoid any use
+of the recorded width, and circumvent the uncertainty associated with
+it, the authors introduced potential mapping. In this technique, the
+recorded mass of data points belonging to circular neighbourhoods is
+aggregated and assigned to a new spatial point whose location
+corresponds to the circle geocenter. The aggregated mass is then
+spatially re-normalized by the area of the polygons in the Voronoi
+diagram formed by these new points. This approach has two
+limitations. First, it transforms data into spatial points and thus
+incurs in information loss about the shape and size of the
+observational aerial units (e.g. \ different shapes could have the
+same centroid). Second, an additional gridding technique needs to be
+applied to analyze temporal trends in yield maps
 \citep{Blackmore2003}, effectively displacing the yield measurements
 twice: all the polygon information is first collapsed into a single
 point which is displaced afterwards.

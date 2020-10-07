@@ -12,12 +12,13 @@ conducted at the Neal Smith National Wildlife Refuge in central Iowa
 to quantify the impact of grassland-to-cropland conversion on
 nitrate-nitrogen (NO\textsubscript{3}–N) concentrations in soil and
 shallow groundwater and to assess the potential for perennial filter
-strips to mitigate increases in NO\textsubscript{3}–N levels
-\citep{Zhou2010}. The experiment was run in different study sites
-within the 3000-ha area managed by the U.S. National Fish and Wildlife
-Service, located in the Walnut Creek watershed in Jasper County,
-Iowa. In this case study, we focus on one specific site named Basswood
-that is situated west to the Basswood Trailhead.
+strips to mitigate increases in NO\textsubscript{3}–N levels, run-off
+reduction, and soil nutrient loss \citep{Zhou2010}. The experiment was
+run in different study sites within the 3000-ha area managed by the
+U.S. National Fish and Wildlife Service, located in the Walnut Creek
+watershed in Jasper County, Iowa. In this case study, we focus on one
+specific site named Basswood that is situated west to the Basswood
+Trailhead.
 
 \OUTLINE{Introduce data specifics} Basswood, located at WGS84 15 N
 0477097E 4598644N, has a total area of approximately 13 Ha. Nearly
@@ -36,10 +37,9 @@ of the experiment protocol and the resulting improvements in the
 biodiversity and the delivery of multiple ecosystem services.
 
 \OUTLINE{Describe data} The yield monitor dataset for the year 2012
-has 4,239 observations logged each three seconds starting from the
+has 4,239 observations logged every three seconds starting from the
 southwest corner of the site. The swath width was reported to be
-constant at 6.10 m as the operator did not adjust the proportion of
-cut head while driving. The distance traveled during each cycle, with
+constant at 6.10m. The distance traveled during each cycle, with
 an overall mean of 3.7 m, has three modes with centers at 1.9, 4.0,
 and 6.0 m. The distribution of the yield reported by the monitor, with
 its median located at 6.3 mg/ha and the 90\% of observations being
@@ -74,9 +74,9 @@ equipment).
 \OUTLINE{Introduce dot maps} Figure \ref{fig:basswood2012-main-steps}
 (top left) displays the simplest form of a yield map. Data points are
 visualized as equally-sized symbols with colors indicating the yield
-level at each location. A single-hue shade of green is chosen to ease
-the interpretation with dark shades being intuitively associated with
-relatively higher crop yield. The characteristics of the yield
+value at each recorded location. A single-hue shade of green is chosen
+to ease the interpretation with dark shades being intuitively
+associated with higher crop yield. The characteristics of the yield
 distribution vary largely across sites, crop types, and years. Since
 the main objective of yield map analysis is to identify sub-field
 areas with different performance levels, the points are colored
@@ -90,14 +90,14 @@ maps.
 \OUTLINE{Describe dot map} The proposed coloring scheme helps
 capturing the large-scale spatial trends: the east area, both above
 and below the perennial crop strip, and the northwest area show the
-best relative performance whereas the southwest borderline is
+best relative performance whereas the southwest area is
 underperforming. Another evident pattern is outer borders and borders
 around inner voids displaying lower yield, which could be explained by
 soil fertility properties or could simply be a byproduct of how data
 is collected. Data artifacts due to narrow finishes are well
 documented: if the header cut was not full when harvesting the
 boundaries and the operator failed to manually flag it, yield would be
-underestimated. Careful consideration should be given to neighbouring
+underestimated. Careful consideration should be given to neighboring
 points that are not on the borders. Light green points on the northern
 borderline are adjacent to dark green points, suggesting that this
 might very well be an artifact due to deficiencies in the the data
@@ -106,11 +106,11 @@ zones are consistently underperforming, thus suggesting the existence
 of an actual spatial trend.
 
 \OUTLINE{Criticize dot map} Using points to visualize the data
-provides no information about the shape of the aerial observational
+provides no information about the shape of the areal observational
 unit and hides the overlaps in the harvested areas, which should be
 considered appropriately when computing the estimated yield at a given
 spatial location. In fact, from the figure it is not evident that
-there is 9.0\% of aerial overlap, defined as the percent excess of the
+there is 9.0\% of areal overlap, defined as the percent excess of the
 sum of the individual rectangles area over the polygons union area.
 
 \OUTLINE{Step 1: Create polygons} We apply the RITAS algorithm. Figure
@@ -124,7 +124,7 @@ between parallel passings and narrow segments.
 
 \OUTLINE{Step 2: Clipping} Because overlapping produces a systematic
 overestimation of the effective area size, thus biasing down the
-estimated yield, its correct treatment can uncover performing
+estimated yield, its correct treatment can uncover underperforming
 areas. In all these cases, the coloring suggests that highly
 overlapping polygons are associated with lower yields. We note,
 however, that yield was computed using the theoretical polygon area
@@ -141,7 +141,7 @@ in case of major situations, aggregating the mass of fully nested
 geometries would be appropriate.
 
 \OUTLINE{Motivate smoothing} As the ultimate goal of the visualization
-work is to support the map user's decision making process, the clipped
+work is to support the user's decision making process, the clipped
 map is not adequate. Crop management decisions at a sub-field scale
 are based on spatial trends whereas the measurements are highly noisy
 due to a combination of at least 10 possible types of data collection
@@ -180,31 +180,6 @@ the overall local trend but also to make internal breaks/borders more
 visible. Additional features can help with interpretation include
 contour lines, e.g. \ each 1 mg/ha similar to \cite{Blackmore1999}, or
 color schemes based on spatial clusters.
-
-We have implemented our algorithm in the R programming language, using
-the R packages doParallel, foreach, gstat, rgeos, and sp
-\citep{Pebesma2004, Pebesma2005, Bivand2013, Graeler2016,
-  Microsoft2017, Corporation2018, RCT2019, Bivand2019}.
-% Our open-source
-% `yieldMaps` package contains routines for the algorithm described in
-% the article, visualization routines, and the dataset employed in the
-% case study. The algorithm routines were programmed as smaller, modular
-% tasks so that users could easily adapt the source code to custom needs
-% such as designing a different gridding and aggregation strategy, or
-% employing another spatial interpolation model. Visualization routines
-% include map generation as well as object movement and polygon creation
-% visualizations.
-
-When doing exact inference for a Gaussian Process, smoothing requires
-the inversion of a square matrix with size equal to the number of
-observations in the aggregation step, which in this case study is
-3,738 pixels. Unless resorting to approximate interpolation methods,
-significant time is expected to be consumed for this purpose. As a
-palliative, our implementation optionally divides the prediction space
-into smaller subsets to be computed in parallel. Although there is no
-direct gain in the matrix inversion time, it provides with some
-marginal improvements as out prediction space is large with more than
-90,000 pixels.
 
 % Using 10 cores, the total computational time of 201 m included 168 m
 % (83\%) and 17 m (8\%) spent in the smoothing and tiling steps

@@ -4,14 +4,14 @@
 for data processing and visualization that is designed for situations
 where the destructive sampling scheme incorporates other non-trivial
 features, namely time order and unequally-sized, irregularly-shaped,
-and possibly overlapping aerial observational units. Reproducing the
+and possibly overlapping areal observational units. Reproducing the
 sampling process, the rules unpack the georeferenced coordinates,
 recorded as points in a 2-dimensional space, into polygons that are
-next tiled. The resulting geometries are aggregated using basic aerial
+next tiled. The resulting geometries are aggregated using basic areal
 units and apportioned assuming that the variable of interest follows a
 uniform distribution at the local scale. The final output of the
-processing rules is in the form of many equally sized and shaped
-polygons, or pixels, equipped with both their associated observed and
+processing rules is in the form of a regular tessellation of the
+harvested area, equipped with both their associated observed and
 smoothed yield; the output is meant for both data analysis and
 visualization. As a byproduct, because the location of the pixels in
 both the aggregation and smoothing grids can be chosen freely without
@@ -26,7 +26,7 @@ for extreme values detection and removal, with up to 32\% of the data
 excluded \cite{Lyle2013}, our physically principled approach generates
 a smooth visualization while retaining as much information as
 collected. This improvement is partly explained by our reproducing of
-the sampling scheme, but also by a twist how the problem has been
+the sampling scheme, but also by a twist on how the problem has been
 traditionally framed: recognizing that local yield is a highly
 volatile measurement unit due to scaling and error propagation, and
 thus effectively shifting the baseline variable from yield to
@@ -48,6 +48,17 @@ across different users, fields, and years.
 % terms of visualization options, it exploits parallelization when
 % computing the smoothed yield via the Gaussian Process.
 
+When doing exact inference for a Gaussian Process, smoothing requires
+the inversion of a square matrix with size equal to the number of
+observations in the aggregation step, which in this case study is
+3,738 pixels. Unless resorting to approximate interpolation methods,
+significant time is expected to be consumed for this purpose. As a
+palliative, our implementation optionally divides the prediction space
+into smaller subsets to be computed in parallel. Although there is no
+direct gain in the matrix inversion time, it provides with some
+marginal improvements as out prediction space is large with more than
+90,000 pixels.
+
 \OUTLINE{Future research: assumptions} Future improvements of this
 algorithm could come from three perspectives: assumptions,
 visualization, and computations. One of the main assumptions is that,
@@ -58,7 +69,7 @@ rate of change of the underlying process, applications for
 highly-distanced observations or rapidly-changing underlying processes
 may require the extension to a different distribution
 (e.g. exponential decay from the centroids of the polygons to its
-boundaries). The yield monitor records additional variables that are
+boundaries). Yield monitors may record additional variables that are
 currently not exploited by our algorithm, which could be enhanced for
 example by smoothing via universal kriging with automatic relevance
 determination for feature selection.
@@ -74,7 +85,7 @@ effect, the harvester fill mode error, and position errors as
 described in \cite{Blackmore1999}.
 
 \OUTLINE{Future research: computation} On the computational side, the
-case study suggests that the most time insuming steps are smoothing
+case study suggests that the most time consuming steps are smoothing
 and tiling, respectively. The former could be reduced by resourcing to
 approximation methods for Gaussian Process spatial interpolation
 \citep{Shi2007,Cressie2008,Katzfuss2011,Nguyen2012,Nguyen2014},

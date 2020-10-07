@@ -982,7 +982,7 @@ For the Major Program\fi\fi}
 % else is empty.
 % JAS - changed default page to chead
 \def\@lhead{} \def\@lfoot{}
-\def\@cfoot{} \def\@chead{{\normalfont \thepage}}  % (JAS11) Changed form \rm \thepage
+\def\@chead{} \def\@cfoot{{\normalfont \thepage}}  % (JAS11) Changed form \rm \thepage
 \def\@rhead{} \def\@rfoot{}
 
 % Put together a three part header or footer given the left, center and

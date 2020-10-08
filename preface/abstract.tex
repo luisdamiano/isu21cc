@@ -6,18 +6,21 @@ observation cleaning procedures based on heuristic or
 empirically-motivated statistical rules for extreme value
 identification and removal. We propose a constructive algorithm for
 handling well-documented yield monitor data artifacts without
-resorting to data deletion. The RITAS algorithm models sample
-observations as overlapping, unequally-shaped, irregularly-sized,
-time-ordered, areal spatial units to better replicate the nature of
-the destructive sampling process. Observations are modeled as
-rectangles. After their intersection area is assigned in time order,
-area tessellation and harvested mass apportioning are applied to
-generate regularly shaped and sized polygons. Finally, smoothing via a
+resorting to data deletion. The four-step Rectangle creation,
+Intersection assignment and Tessellation, Apportioning, and Smoothing
+(RITAS) algorithm models sample observations as overlapping,
+unequally-shaped, irregularly-sized, time-ordered, areal spatial units
+to better replicate the nature of the destructive sampling
+process. Positional data is used to create rectangular aerial spatial
+units. Time-ordered intersecting area tessellation and harvested mass
+apportioning generate regularly -shaped and \mbox{-sized} polygons
+partitioning the entire harvested area. Finally, smoothing via a
 Gaussian process is used to provide map users with spatial-trend
 visualization. The intermediate steps as well as the algorithm output
-are illustrated in maize and soybean grain yield maps across five
-years for a research agricultural site located in the US Fish and
-Wildlife Service Neal Smith National Wildlife Refuge.
+are illustrated in maize and soybean grain yield maps for five years
+of yield monitor data collected at a research agricultural site
+located in the US Fish and Wildlife Service Neal Smith National
+Wildlife Refuge.
 
 %%% Local Variables:
 %%% mode: latex

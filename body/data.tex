@@ -1,89 +1,42 @@
 \chapter{Data collection}
 
-We first consider previous agronomical studies provide insight on the
-physicalities of the natural system whose sampling process we aim at
-replicating with our statistical algorithm. \cite{Ross2008} is a
-synoptic work focused on yield estimation from yield monitor data
-covering conceptual, modeling, and mechanical
-aspects. \cite{Arslan2002} investigates the impact of yield monitor
-calibration in yield estimation accuracy. Although not statistical in
-nature.
-
-We define crop yield as crop grain mass per unit area. Yield
-monitoring equipment, introduced in the early 1990s, is a set of
-typically more than six sensors, antennas, and devices attached to
-combine harvesters that altogether calculate and record grain yield in
-real time as the machine operator harvests the productive field. At
-the end of each cycle, which lasts a pre-specified number of seconds
-that can be adjusted dynamically by the operator, the monitor logs
-measurements for more than 15 variables related to geolocation, crop
-characteristics, and other machine diagnostics. The quantities
-
-Relying on several on-board sensors such as yield monitors generate an
-extremely large amount of observations.
-
-As a combine harvester passes through a field, yield monitors acquire
-almost in real-time multiple yield measurements all over the field. At
-the same time, those data are associated with the GNSS positioning of
-the machinery which enables precise location of each one of these
-observations at the within-field level. As such, thousands of yield
-spatial observations are generated and are ready to be used in the
-decision-making process. 
+For our purposes, we define crop yield as crop grain mass per unit
+area. Our quantity of interest is a ratio of two quantities that
+involve a set of typically more than six sensors, antennas, and
+devices attached to combine harvesters that altogether calculate and
+record grain yield in real time as the machine operator harvests the
+productive field. At the end of each cycle, which lasts a
+pre-specified number of seconds, the monitor logs measurements from
+several on-board sensors for more than 15 variables related to
+geolocation, crop characteristics, and machine diagnostics. Dataset
+size could range from one to more than a hundred thousands or more
+observations depending on factors such as field size, cycle length,
+and land features.
 
 Grain yield mapping using geo-referenced measurements from a
 combine-mounted grain yield monitor are prevalent in
 agriculture. Reported accuracy of continuous yield monitoring ranges
-from 93 to 99.5 (Birrell et al. 1996; Arslan and Colvin 2002a; Fulton
-et al. 2009) but depends on the type and brand of yield monitor,
-calibration regime, flow rate and environmental conditions at harvest.
+93-99.5\% depending on equipment type and brand, calibration regime,
+flow rate, and environmental conditions at harvest
+\citep{birrellComparisonSensorsTechniques1996, Fulton2009,
+  Lyle2013}. \cite{Arslan2002} investigates the specific impact of
+yield monitor calibration in yield estimation accuracy.
 
-A combine's receiver estimates the position of the GPS
-antenna. Receivers of this type currently in use achieve a root mean
-square horizontal uncertainty between 0.5 and 3 m. Measurement of the
-combine's position, however, is often less accurate than measurement
-of the combine's velocity,
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Plant mass and harvested mass differ. it undergoes a series of
-processes to separate grain from other materials and send clean grain
-to the grain tank. operations of the combine: gathering, cutting,
-pickup, and feeding, threshing, separation, and cleaning Grain loss
-can be further broken down into “gathering loss” (grain missed or
-dropped by the header), “processing loss” (grain lost due to standard
-internal combine processes), and “leakage loss” (any combine losses
-not due to gathering or standard internal processes) equal to the mass
-of crop brought into the combine at that time note time dependence in
-both gathering width and distance traveled. Amount of grain at a
-specified location in the field is measured after the crop is
-processed, usually on or at the exit of the clean grain
-elevator. Thus, there is a time delay in flow rate measurements, which
-addresses the time for grain to be transported from the combine head
-to the yield sensor.
-
-% The effective width is determined by the amount of underlap or overlap
-% of adjacent planter passes the stationary mass, mG(tk), is transformed
-% into a mass flow,
-
-% confounding error conditions which must be screened out of
-% the data.
-
-% These datasets are effectively acquired through a variety of
-% acquisition systems—machines, sensors—and on multiple crops, with
-% different operators and under varying conditions of acquisition,
-% e.g. topography or climate.
-
-% n agriculture, data acquisition with on-board sensors can be
-% understood as a sequential procedure through time during which a
-% machine acquires information of a variable Z in space. Indeed, the
-% data collection process follows a temporal dynamic,
-
-% Birrell, S. J., Sudduth, K. A., & Borgelt, S. C. (1996). Comparison of sensors and techniques for crop yield mapping. Computers and Electronics in Agriculture, 14(2–3), 215–233.
-
-% Arslan, S., & Colvin, T. S. (2002a). An evaluation of the response of yield monitors and combines to varying yields. Precision Agriculture, 3, 107–122.
-
-% Fulton, J. P., Sobolik, C. J., Shearer, S. A., Higgins, S. F., & Burks, T. F. (2009). Grain yield monitor flow sensor accuracy for simulated varying field slopes. Applied Engineering in Agriculture, 25(1), 15–21.
-
+Previous agronomical studies offer insight on the physicalities of the
+natural system whose sampling process we replicate. \cite{Ross2008} is
+a synoptic work focused on yield estimation from yield monitor data
+covering conceptual, modeling, and mechanical aspects. Grain mass
+measurement involves a series of operations to separate clean grain
+from other materials: gathering, cutting, pickup, and feeding,
+threshing, separation, and cleaning. As a result, there is a time
+delay in flow rate measurement as well as several mass losses
+associated with plant gathering, processing, and leaking until the
+grain is measured on or at the exit of the clean grain elevator. At
+the end of each cycle, a receiver estimates the GPS antenna position,
+whose placement in the combine varies across models. Their
+capabilities vary largely, typically being more accurate at measuring
+velocity rather than position and having a root mean square horizontal
+uncertainty of 0.5-3.
 
 %%% Local Variables:
 %%% mode: latex

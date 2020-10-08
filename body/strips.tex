@@ -50,24 +50,26 @@ visualized as voids in the maps, correspond to small portions of soil
 allocated for nonproductive purposes (e.g. perennial crops, research
 equipment).
 
-\begin{figure}[h!]  \centering
+\begin{figure}[H]  \centering
   \includegraphics[width=\textwidth]{basswood_2012_res5_points_vehicle}
   \includegraphics[width=\textwidth]{basswood_2012_res5_1_agg_smoothed}
   \caption[Visualization of selected algorithm steps as applied to a
-  specific dataset]{Visualization of selected intermediate steps involved
-    in the algorithm for the harvested grain yield of Basswood on year
-    2012 (maize). \underline{Top left}: Point map where each observation is
-    marked with equally-sized points placed at the each logging
-    location. Information relevant to spatial trends are hard to observe,
-    such as area coverage and overlaps. \underline{Top right}: Map of the
-    clipped polygons. Highly intertiment coloring in noisy areas hinder
-    the visualization of the spatial trends, hence the need for
-    smoothing. \underline{Bottom left}: Map of the aggregated grid at a 5
-    m resolution. This step produces equally-sized, regularly-shaped
-    polygons suitable for spatial interpolation. \underline{Bottom right}:
-    Map to be shown to the user. By increasing color homogeneity at a
-    local level, low and high yield areas have a larger contrast and
-    become easier to identify.}
+  specific dataset]{Visualization of selected intermediate steps
+    involved in the algorithm for the harvested grain yield of
+    Basswood on year 2012 (maize). \underline{Top left}: Point map
+    where each observation is marked with equally-sized points placed
+    at the each logging location. Information relevant to spatial
+    trends are hard to observe, such as area coverage and
+    overlaps. \underline{Top right}: Map of the clipped
+    polygons. Highly intertiment coloring in noisy areas hinder the
+    visualization of the spatial trends, hence the need for
+    smoothing. \underline{Bottom left}: Map of the aggregated grid at
+    a 5 m resolution. This step produces equally-sized,
+    regularly-shaped polygons suitable for spatial
+    interpolation. \underline{Bottom right}: Map to be shown to the
+    user. By increasing color homogeneity at a local level, low- and
+    high-yield areas have a larger contrast and become easier to
+    identify.}
   \label{fig:basswood2012-main-steps}
 \end{figure}
 
@@ -189,18 +191,17 @@ color schemes based on spatial clusters.
 % the same field but different years and crops are shown in Figure
 % \ref{fig:basswood-history}.
 
-\begin{figure}[h!]  \centering
-  \includegraphics[width=0.49\textwidth]{basswood_2010_res5_1_agg_smoothed}
-  \includegraphics[width=0.49\textwidth]{basswood_2014_res5_1_agg_smoothed}
-  \includegraphics[width=0.49\textwidth]{basswood_2009_res5_1_agg_smoothed}
-  \includegraphics[width=0.49\textwidth]{basswood_2011_res5_1_agg_smoothed}
+\begin{figure}[H]  \centering
+  \includegraphics[width=0.73\textwidth]{basswood_2010_res5_1_agg_smoothed}
+  \includegraphics[width=0.73\textwidth]{basswood_2014_res5_1_agg_smoothed}
+  \includegraphics[width=0.73\textwidth]{basswood_2009_res5_1_agg_smoothed}
+  \includegraphics[width=0.73\textwidth]{basswood_2011_res5_1_agg_smoothed}
   \caption[Visualization of the algorithm output for one field across
   four different years]{Visualization of the harvested grain yield for
-    Basswood in four different years. Maize in the top row, soybean in
-    the bottom row. Aggregated yield in odd columns, smoothed yield in
-    even columns. Although soybean data shows larger variability, as
-    clearly displayed on the aggregated grid, the smooth map offer a
-    clear visualization of the spatial trends. }
+    Basswood. Rows: 2010 (maize), 2014 (maize), 2009 (soybean), 2011
+    (soybean). Columns: apportioned (left), smoothed (right). Despite
+    soybean larger variability, the smooth map offer a clear
+    visualization of the spatial trends. }
   \label{fig:basswood-history}
 \end{figure}
 
